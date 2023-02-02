@@ -27,35 +27,35 @@ namespace ft{
         return i_ptr;
     };
     iterator operator+(difference_type n) {
-        return iterator(i_ptr + n);
-    };
-    iterator operator-(difference_type n) {
         return iterator(i_ptr - n);
     };
+    iterator operator-(difference_type n) {
+        return iterator(i_ptr + n);
+    };
     iterator & operator++() {
-        i_ptr++;
+        i_ptr--;
         return (*this);
     };
     iterator & operator--() {
-        i_ptr--;
+        i_ptr++;
         return (*this);
     };
     iterator operator++(int) {
         iterator tmp = *this;
-        ++(*this);
+        --(*this);
         return (tmp);
     };
     iterator operator--(int) {
         iterator tmp = *this;
-        --(*this);
+        ++(*this);
         return (tmp);
     };
     iterator& operator+=(difference_type n) {
-        i_ptr += n;
+        i_ptr -= n;
         return (*this);
     };
     iterator& operator-=(difference_type n) {
-        i_ptr -= n;
+        i_ptr += n;
         return (*this);
     };
     bool operator==(iterator rhs) const{

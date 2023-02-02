@@ -85,33 +85,44 @@
 // }
 
 
-// vector comparisons
-#include <iostream>
-#include <vector>
+// // vector comparisons
+// #include <iostream>
+// #include <vector>
 
-int main ()
-{
-  std::vector<int> foo (3,10);   // three ints with a value of 100
-  std::vector<int> bar (2,100);   // two ints with a value of 200
-  foo.reserve(300);
-  std::cout << foo.capacity() <<"    " << *foo.end() << std::endl;
-  // if (foo==bar) std::cout << "foo and bar are equal\n";
-  // if (foo!=bar) std::cout << "foo and bar are not equal\n";
-  // if (foo< bar) std::cout << "foo is less than bar\n";
-  // if (foo> bar) std::cout << "foo is greater than bar\n";
-  // if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
-  // if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
+// int main ()
+// {
+  
+//   // std::vector<int> foo (3,10);   // three ints with a value of 100
+//   // std::vector<int> bar (2,100);   // two ints with a value of 200
+//   // foo.reserve(300);
+//   // std::cout << foo.capacity() <<"    " << *foo.end() << std::endl;
+//   // if (foo==bar) std::cout << "foo and bar are equal\n";
+//   // if (foo!=bar) std::cout << "foo and bar are not equal\n";
+//   // if (foo< bar) std::cout << "foo is less than bar\n";
+//   // if (foo> bar) std::cout << "foo is greater than bar\n";
+//   // if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
+//   // if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
 
-  ft::vector<int> fooo (3,10);   // three ints with a value of 100
-  ft::vector<int> baar (2,100);   // two ints with a value of 200
-  fooo.reserve(300);
-  std::cout << fooo.capacity() <<"    " << *fooo.end() << std::endl;
-  // if (fooo==baar) std::cout << "foo and bar are equal\n";
-  // if (fooo!=baar) std::cout << "foo and bar are not equal\n";
-  // if (fooo< baar) std::cout << "foo is less than bar\n";
-  // if (fooo> baar) std::cout << "foo is greater than bar\n";
-  // if (fooo<=baar) std::cout << "foo is less than or equal to bar\n";
-  // if (fooo>=baar) std::cout << "foo is greater than or equal to bar\n";
+//   ft::vector<double> fooo(3,100);
+//   fooo.resize(100);   // three ints with a value of 100
+//   // for (int i = 0; i < 26; ++i) {
+//   //           fooo.push_back(45.0123);
+//   //           // CHECK_AND_PRINT_ALL(v);
+//   //       }
+//   //       for (int i = 0; i < 26; ++i) {
+//   //          std::cout <<  fooo[i] << std::endl;
+//   //           // CHECK_AND_PRINT_ALL(v);
+//   //       }
+//         system("Leaks containers");
+//   // ft::vector<int> baar (2,100);   // two ints with a value of 200
+//   // fooo.reserve(300);
+//   // std::cout << fooo.capacity() <<"    " << *fooo.end() << std::endl;
+//   // if (fooo==baar) std::cout << "foo and bar are equal\n";
+//   // if (fooo!=baar) std::cout << "foo and bar are not equal\n";
+//   // if (fooo< baar) std::cout << "foo is less than bar\n";
+//   // if (fooo> baar) std::cout << "foo is greater than bar\n";
+//   // if (fooo<=baar) std::cout << "foo is less than or equal to bar\n";
+//   // if (fooo>=baar) std::cout << "foo is greater than or equal to bar\n";
 
-  return 0;
-}
+//   return 0;
+// }
