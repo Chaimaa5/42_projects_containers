@@ -17,10 +17,10 @@ namespace ft{
 			typedef size_t 						size_type;
 			typedef T							value_type;
 			typedef ptrdiff_t					difference_type;
-			typedef  iterator<T> 				iterator;
-			typedef  const iterator  			const_iterator;
-			typedef  reverse_iterator<T> 		reverse_iterator;
-			typedef  const reverse_iterator  	const_reverse_iterator;
+			typedef  ft::iterator<T> 				iterator;
+			typedef  ft::reverse_iterator<iterator> 		reverse_iterator;
+			typedef  ft::iterator<const T> 			const_iterator;
+			typedef  ft::reverse_iterator<const iterator>   	const_reverse_iterator;
 			// typedef typename iterator_traits<iterator>::difference_type difference_type;
 
 			// CONSTRUCTORS
@@ -32,6 +32,7 @@ namespace ft{
 			};
 			// fill (2)	
 			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()){
+				
 				this->alloc = alloc;
 				this->v_size = n;
 				this->v_capacity = n;
@@ -39,16 +40,35 @@ namespace ft{
 				for (size_type i = 0; i < n; i++)
 					this->alloc.construct(&arr[i], val);
 			};
+
+			// range (3)	
+			// template <class InputIterator>
+			// vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()){
+			// 	v_size = last - first;
+			// 	v_capacity = v_size;
+			// 	this->alloc = alloc;
+			// 	this->arr = this->alloc.allocate(v_capacity);
+			// 	for (size_type i = 0; i < v_size; i++)
+			// 		this->alloc.construct(&arr[i], first[i]);
+			// };
+
 			// copy (4)	
 			vector (const vector& x){
-				this = x;
+				*this = x;
 			}
+
+
 			//Assignment op
 			vector& operator=(const vector& x){
-				this->v_size = x.v_size;
+				clear();
+				if(arr)
+					alloc.deallocate(arr, v_capacity);
+				this->arr = alloc.allocate(x.v_capacity);
+				for (size_t i = 0; i < x.v_size; i++)
+					alloc.construct(&arr[i], x.arr[i]);
+				alloc = x.alloc;
 				this->v_capacity = x.v_capacity;
-				this->arr = alloc.allocate(v_capacity);
-				*this->arr = *(x.arr);
+				this->v_size = x.v_size;
 				return (*this);
 			}
 			//DESTRUCTOR
@@ -145,17 +165,22 @@ namespace ft{
 			void reserve (size_type n){
 				if (n > v_capacity)
 				{
-					pointer tmp = alloc.allocate(v_size);
+					size_type capacity = v_capacity;
+					size_type tmp_size = v_size;
+					v_capacity = n;
+					pointer tmp = alloc.allocate(v_capacity);
 					for (size_t i = 0; i < v_size; i++)
 						alloc.construct(&tmp[i], arr[i]);
-					size_type tmp_size = v_size;
 					clear();
-					v_capacity = n;
-					clear();
+					if (arr)
+						alloc.deallocate(arr, capacity);		
 					arr = alloc.allocate(v_capacity);
 					for (size_t i = 0; i < tmp_size; i++)
 						alloc.construct(&arr[i], tmp[i]);
 					v_size = tmp_size;
+					for (size_t i = 0; i < tmp_size; i++)
+						alloc.destroy(&tmp[i]);
+					alloc.deallocate(tmp, v_capacity);
 				}
 			};
 
@@ -225,9 +250,7 @@ namespace ft{
 			// template < class T, class Alloc = allocator<T> > class vector; // generic template
 			// template <class Alloc> class vector<bool,Alloc>;               // bool specialization
 
-			// range (3)	
-			// template <class InputIterator>
-			// vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
+		
 			
 			//MODIFIERS
 			// template <class InputIterator>
@@ -267,6 +290,8 @@ namespace ft{
 					return false;
 			}
 		}
+		else
+			return false;
 		return true;
 	};
 	template <class T, class Alloc>
@@ -294,33 +319,37 @@ namespace ft{
 			for (size_t i = 0; i < lhs.size(); i++)
 			{
 				if (lhs.get_array()[i] <= rhs.get_array()[i])
-					return false;
+					return true;
 			}
 		}
+		else
+			return false;
 		return true;
 	};
 	template <class T, class Alloc>
 	bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
 		if (lhs.size() > rhs.size())
 		{
-			for (size_t i = 0; i < lhs.size(); i++)
+			for (size_t i = 0; i < rhs.size(); i++)
 			{
 				if (lhs.get_array()[i] > rhs.get_array()[i])
-					return false;
+					return true;
 			}
 		}
-		return true;
+		return false;
 	};
 	template <class T, class Alloc>
 	bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
 		if (lhs.size() >= rhs.size())
 		{
-			for (size_t i = 0; i < lhs.size(); i++)
+			for (size_t i = 0; i < rhs.size(); i++)
 			{
 				if (lhs.get_array()[i] >= rhs.get_array()[i])
-					return false;
+					return true;
 			}
 		}
+		else
+			return false;
 		return true;
 	};
 }

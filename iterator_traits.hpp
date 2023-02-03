@@ -26,11 +26,3 @@ namespace ft{
 	};
 }
 
-
-
-//  using iterator_concept  = contiguous_iterator_tag;
-//     using iterator_category = random_access_iterator_tag;
-//     using value_type        = remove_cv_t<T>;
-//     using difference_type   = ptrdiff_t;
-//     using pointer           = T*;
-    // using reference         = T&;

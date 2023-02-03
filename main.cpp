@@ -126,3 +126,78 @@
 
 //   return 0;
 // }
+
+
+#include<iostream>
+#include<iterator> // for iterators
+#include<vector> // for vectors
+// using namespace std;
+int main()
+{
+    // ft::vector<int> ar(2, 100);
+    //   ar.push_back(45);
+    // // Declaring iterator to a vector
+    // ft::vector<int>::reverse_iterator ptr;
+      
+    // // Displaying vector elements using begin() and end()
+    // std::cout << "The vector elements are : ";
+    // // for (ptr = ar.begin(); ptr < ar.end(); ptr++)
+    // //     std::cout << *ptr << " ";
+    // ptr--;
+	// // ptr+=1;
+	// std::cout <<std::endl << *ptr << " ";
+
+	//  std::vector<int> arr(2, 100);
+    //   arr.push_back(45);
+    // // Declaring iterator to a vector
+    // std::vector<int>::iterator ptrr;
+      
+    // // Displaying vector elements using begin() and end()
+    // std::cout << "The vector elements are : ";
+    // for (ptrr = arr.begin(); ptrr < arr.end(); ptrr++)
+    //     std::cout << *ptrr << " ";
+    // ptrr -=2;
+	// ptrr+=1;
+	// std::cout <<std::endl << *ptrr << " ";
+    {
+
+       std::vector<long> v1(5, 64);
+        std::vector<long> v2(5, 48);
+
+        if (v1 <= v2) {
+            std::cout << "Less than or equal...";
+        }
+    }
+// {
+
+//     std::vector<long> v1(5, 64);
+//     std::vector<long> v2;
+//     if (v1 >= v2) {
+//                 std::cout <<"Equal.." <<std::endl;
+//             }
+// }
+// {
+
+//     std::vector<long> v1;
+//     std::vector<long> v2(5, 32);
+//     if (v1 >= v2) {
+//                 std::cout <<"Equal..." <<std::endl;
+//             }
+// }
+// {
+
+//     std::vector<long> v1(5, 64);
+//     std::vector<long> v2(5, 48);
+//     if (v1 >= v2) {
+//                 std::cout <<"Equal...." <<std::endl;
+//             }
+// }
+// {
+//     std::vector<long> v1(5, 64);
+//     std::vector<long> v2(5, 64);
+// if (v1 >= v2) {
+//                 std::cout <<"Equal....." <<std::endl;
+//             }
+// }
+    return 0;    
+}
