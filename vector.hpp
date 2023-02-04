@@ -42,15 +42,15 @@ namespace ft{
 			};
 
 			// range (3)	
-			// template <class InputIterator>
-			// vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()){
-			// 	v_size = last - first;
-			// 	v_capacity = v_size;
-			// 	this->alloc = alloc;
-			// 	this->arr = this->alloc.allocate(v_capacity);
-			// 	for (size_type i = 0; i < v_size; i++)
-			// 		this->alloc.construct(&arr[i], first[i]);
-			// };
+			template <class InputIterator>
+			vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()){
+				v_size = last - first;
+				v_capacity = v_size;
+				this->alloc = alloc;
+				this->arr = this->alloc.allocate(v_capacity);
+				for (size_type i = 0; i < v_size; i++)
+					this->alloc.construct(&arr[i], first[i]);
+			};
 
 			// copy (4)	
 			vector (const vector& x){
@@ -63,6 +63,7 @@ namespace ft{
 				clear();
 				if(arr)
 					alloc.deallocate(arr, v_capacity);
+
 				this->arr = alloc.allocate(x.v_capacity);
 				for (size_t i = 0; i < x.v_size; i++)
 					alloc.construct(&arr[i], x.arr[i]);
@@ -94,16 +95,16 @@ namespace ft{
 				return &arr[v_size];
 			};
 			reverse_iterator rbegin(){
-				return &arr[v_size];
+				return reverse_iterator(&arr[v_size]);
 			};
 			const_reverse_iterator rbegin() const{
-				return &arr[v_size];
+				return const_reverse_iterator(&arr[v_size]);
 			};
 			reverse_iterator rend(){
-				return arr;
+				return reverse_iterator(arr);
 			};
 			const_reverse_iterator rend() const{
-				return arr;
+				return const_reverse_iterator(arr);
 			};
 
 			//v_capacity
@@ -277,8 +278,8 @@ namespace ft{
 				allocator_type 	alloc;
 	};
 	// //NON MEMBER FUNCTIONS
-	// template <class T, class Alloc>
-	// void swap (vector<T,Alloc>& x, vector<T,Alloc>& y);
+	template <class T, class Alloc>
+	void swap (vector<T,Alloc>& x, vector<T,Alloc>& y);
 	template <class T, class Alloc>
 	bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
 	{
@@ -307,9 +308,11 @@ namespace ft{
 			for (size_t i = 0; i < lhs.size(); i++)
 			{
 				if (lhs.get_array()[i] < rhs.get_array()[i])
-					return false;
+					return true;
 			}
 		}
+		else
+			return false;
 		return true;
 	};
 	template <class T, class Alloc>
@@ -319,7 +322,7 @@ namespace ft{
 			for (size_t i = 0; i < lhs.size(); i++)
 			{
 				if (lhs.get_array()[i] <= rhs.get_array()[i])
-					return true;
+					return true; 
 			}
 		}
 		else
@@ -328,14 +331,18 @@ namespace ft{
 	};
 	template <class T, class Alloc>
 	bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
+		
 		if (lhs.size() > rhs.size())
 		{
 			for (size_t i = 0; i < rhs.size(); i++)
 			{
 				if (lhs.get_array()[i] > rhs.get_array()[i])
 					return true;
+				else
+					return false;
 			}
 		}
+		else 
 		return false;
 	};
 	template <class T, class Alloc>
