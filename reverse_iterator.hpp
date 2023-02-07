@@ -1,7 +1,7 @@
 #pragma once
 #include "iterator.hpp"
 #include "iterator_traits.hpp"
-
+#include <iterator>
 namespace ft{
 	template <class iterator>
   	class reverse_iterator {
@@ -15,16 +15,16 @@ namespace ft{
     //CONSTRUCTORS
     reverse_iterator():It(nullptr){};
     // initialization (2)	
-    explicit reverse_iterator (iterator_type it){this->It = it;};
+    explicit reverse_iterator (iterator_type it):It(it){};
     // copy (3)	
     template <class Iter>
-    reverse_iterator (const reverse_iterator<Iter>& rev_it){
-        this->It = rev_it.base();
+    reverse_iterator (const reverse_iterator<Iter>& rev_it):It(rev_it.base()){
+        
     };
     iterator_type base() const{
         return It;
     };
-     operator reverse_iterator<const iterator>() const {
+    operator reverse_iterator<const iterator>() const {
         return reverse_iterator<const iterator>(this->It); };
 
     //OPERATORS
@@ -67,7 +67,7 @@ namespace ft{
         return (*this);
     };
     reverse_iterator& operator-=(difference_type n) {
-        It += n;
+        It += n; 
         return (*this);
     };
     template <class R>
