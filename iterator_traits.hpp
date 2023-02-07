@@ -9,7 +9,7 @@ namespace ft{
    		typedef typename Iterator::iterator_category	iterator_category;
 	};
 	template <class T> 
-	class iterator_traits<T*>{
+	struct iterator_traits<T*>{
 		typedef T value_type;
    		typedef ptrdiff_t difference_type;
    		typedef T* pointer;
@@ -18,7 +18,7 @@ namespace ft{
 	};
 
 	template <class T> 
-	class iterator_traits<const T*>{
+	struct iterator_traits<const T*>{
 		typedef T value_type;
    		typedef ptrdiff_t difference_type;
    		typedef const T* pointer;

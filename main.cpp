@@ -271,42 +271,28 @@
 #include "reverse_iterator.hpp"       // std::vector
 #include "vector.hpp"
 int main () {
-  ft::vector<int> myvector;
-  for (int i=0; i<10; i++) myvector.push_back(i);
+  ft::vector<int>a;
+  a.push_back(4);
+  a.push_back(14);
+  a.push_back(41);
+  a.push_back(411);
+  ft::vector<int>::reverse_iterator i = a.rbegin();
+  i--;
+  i--;
 
-  typedef ft::vector<int>::iterator iter_type;
-                                                         // ? 0 1 2 3 4 5 6 7 8 9 ?
-  iter_type from (myvector.begin());                     //   ^
-  // from = from + 1;
-                                                        //         ------>
-  iter_type until (myvector.end());                      //                       ^
-                                                         //
-  ft::reverse_iterator<iter_type> rev_until (from);     // ^
-                                                         //         <------
-  ft::reverse_iterator<iter_type> rev_from (until);     //                     ^
- std::cout << ' ' << *rev_from++;
-  std::cout << '\n';
-  std::cout << "myvector:";
-  while (rev_from != rev_until)
-    std::cout << ' ' << *rev_from++;
-  std::cout << '\n';
+  std::cout<<*i<<std::endl;
+  {
+      std::vector<int>a;
+  a.push_back(4);
+  a.push_back(14);
+  a.push_back(41);
+  a.push_back(411);
+  std::vector<int>::reverse_iterator i = a.rbegin();
+  i--;
+  i--;
+  std::cout<<*i<<std::endl;
+  }
 
-{
-  std::vector<int> myvector;
-  for (int i=0; i<10; i++) myvector.push_back(i);
-
-  typedef std::vector<int>::iterator iter_type;// ? 0 1 2 3 4 5 6 7 8 9 ?
-  iter_type from (myvector.begin());                     //   ^
-  // from = from + 1;//         ------>
-  iter_type until (myvector.end());                      //                       ^//
-  std::reverse_iterator<iter_type> rev_until (from);     // ^//         <------
-  std::reverse_iterator<iter_type> rev_from (until);     //                     ^
- std::cout << ' ' << *rev_from++;
-  std::cout << '\n';  std::cout << "myvector:";
-  while (rev_from != rev_until)
-    std::cout << ' ' << *rev_from++;
-  std::cout << '\n';
-}
   return 0;
 }
 // // int main () {
