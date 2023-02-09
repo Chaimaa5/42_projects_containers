@@ -1,37 +1,20 @@
-// #include "iterator.hpp"
-#include "vector.hpp"
 #include <iostream>
-#include <vector>
-#include <iterator>
-int main(){
+// #include <vector>
+#include "vector.hpp"
+using namespace std;
 
-//        ft::vector<int> v2;
-//         // ft::vector<int>::reverse_iterator it = v2.rbegin();
-//          ft::vector<int>::const_reverse_iterator cit;
-//  v2.push_back(100);
-// v2.push_back(4);
-// v2.push_back(3);
-// v2.push_back(2);
-// v2.push_back(1);
-// v2.push_back(20);
-//         //  it = v2.rbegin() + 4;
-//         cit = v2.rbegin() + 4;
-        //     std::cout << *(cit)<< std::endl;
+int main(void) {
+   ft::vector<int> v1(5);
 
-  {
-      std::vector<int> v2;
-        // std::vector<int>::reverse_iterator it = v2.rbegin();
-         ft::vector<int>::const_reverse_iterator cit;
-         (void)cit;
- v2.push_back(100);
-v2.push_back(4);
-v2.push_back(3);
-v2.push_back(2);
-v2.push_back(1);
-v2.push_back(20);
-        //  it = v2.rbegin() + 4;
-        // cit = v2.rbegin() + 4;
-        //     std::cout << *(cit)<< std::endl;
+   /* assigned value to vector v1 */
+   for (size_t i = 0; i < v1.size(); ++i)
+      v1[i] = i + 1;
 
-  }
+   /* create a range constructor v2 from v1 */
+   ft::vector<int> v2(v1.begin(), v1.end());
+
+   for (size_t i = 0; i < v2.size(); ++i)
+      cout << v2[i] << endl;
+
+   return 0;
 }

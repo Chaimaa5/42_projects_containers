@@ -5,6 +5,7 @@
 #include <limits>
 #include "iterator.hpp"
 #include "reverse_iterator.hpp"
+#include "enable_if.hpp"
 namespace ft{
 	template < class T, class Alloc = std::allocator<T> > 
 	class vector{
@@ -28,7 +29,7 @@ namespace ft{
 				this->arr = NULL;
 				this->v_size = 0;
 				this->v_capacity = 0;
-			};
+			}
 			// fill (2)	
 			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()){
 				
@@ -38,18 +39,19 @@ namespace ft{
 				this->arr = this->alloc.allocate(v_capacity);
 				for (size_type i = 0; i < n; i++)
 					this->alloc.construct(&arr[i], val);
-			};
+			}
 
 			// range (3)	
-			template <class InputIterator>
-			vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()){
-				v_size = last - first;
+			template <typename InputIterator>
+			vector (InputIterator first, typename ft::EnableIf<ft::is_Integral<InputIterator>::value,InputIterator>::type last, const allocator_type& alloc = allocator_type()){
+				v_size = std::distance(first, last);
 				v_capacity = v_size;
 				this->alloc = alloc;
 				this->arr = this->alloc.allocate(v_capacity);
-				for (size_type i = 0; i < v_size; i++)
-					this->alloc.construct(&arr[i], *first);
-			};
+				size_t i = 0;
+				for (InputIterator it = first; it != last; it++, i++)
+					this->alloc.construct(&arr[i], *it);
+			}
 
 			// copy (4)	
 			vector (const vector& x){
@@ -79,7 +81,7 @@ namespace ft{
 						alloc.destroy(&arr[i]);
 					alloc.deallocate(arr, v_capacity);
 				}
-			};
+			}
 			//ITERATORS
 			iterator begin(){
 				return arr;
