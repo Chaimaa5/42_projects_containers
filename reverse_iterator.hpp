@@ -1,7 +1,8 @@
 #pragma once
 #include "iterator.hpp"
 #include "iterator_traits.hpp"
-#include <iterator>
+#include <iostream>
+
 namespace ft{
 	template <class iterator>
   	class reverse_iterator {
@@ -15,11 +16,13 @@ namespace ft{
     //CONSTRUCTORS
     reverse_iterator():It(nullptr){};
     // initialization (2)	
-    explicit reverse_iterator (iterator_type it):It(it){};
+    explicit reverse_iterator (iterator_type it){     
+        It = it;
+};
     // copy (3)	
     template <class Iter>
-    reverse_iterator (const reverse_iterator<Iter>& rev_it):It(rev_it.base()){
-        
+    reverse_iterator (const reverse_iterator<Iter>& rev_it){
+        It  =  rev_it.base();
     };
     iterator_type base() const{
         return It;
@@ -39,6 +42,7 @@ namespace ft{
         return *(It - n - 1);
     };
     reverse_iterator operator+(difference_type n) const{
+         
         return reverse_iterator(It - n);
     };
     reverse_iterator operator-(difference_type n) const{
@@ -77,7 +81,7 @@ namespace ft{
     };
     template <class R, class L>
     friend bool operator==(const reverse_iterator<R> &lhs,  const reverse_iterator<L> &rhs){
-        return  (lhs.base() != rhs.base());
+        return  (lhs.base() == rhs.base());
     };
     template <class R, class L>
     friend bool operator>(const reverse_iterator<R> &lhs,  const reverse_iterator<L> &rhs) {
@@ -106,8 +110,8 @@ namespace ft{
     template <class R, class L>
 	friend bool operator!=(const reverse_iterator<R> &lhs,  const reverse_iterator<L> &rhs) {
 		if (lhs.base() == rhs.base())
-            return true;
-        return false;
+            return false;
+        return true;
 		};	
    
 	private:
@@ -119,7 +123,7 @@ namespace ft{
     };
     template <class sa>
     reverse_iterator<sa> operator+( typename reverse_iterator<sa>::difference_type n, const reverse_iterator<sa>& rev_it){
-        return reverse_iterator <sa>(rev_it - n);
+        return reverse_iterator <sa>(rev_it + n);
     };
    
 }

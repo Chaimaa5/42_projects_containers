@@ -18,10 +18,9 @@ namespace ft{
 			typedef T							value_type;
 			typedef ptrdiff_t					difference_type;
 			typedef  ft::iterator<T> 				iterator;
+			typedef   iterator		const_iterator;
+			typedef  ft::reverse_iterator<const_iterator>   	const_reverse_iterator;
 			typedef  ft::reverse_iterator<iterator> 		reverse_iterator;
-			typedef  ft::iterator<const T> 			const_iterator;
-			typedef  ft::reverse_iterator<const iterator>   	const_reverse_iterator;
-			// typedef typename iterator_traits<iterator>::difference_type difference_type;
 
 			// CONSTRUCTORS
 			explicit vector (const allocator_type& alloc = allocator_type()){
@@ -49,7 +48,7 @@ namespace ft{
 				this->alloc = alloc;
 				this->arr = this->alloc.allocate(v_capacity);
 				for (size_type i = 0; i < v_size; i++)
-					this->alloc.construct(&arr[i], first[i]);
+					this->alloc.construct(&arr[i], *first);
 			};
 
 			// copy (4)	
@@ -95,10 +94,10 @@ namespace ft{
 				return &arr[v_size];
 			};
 			reverse_iterator rbegin(){
-				return reverse_iterator(&arr[v_size - 1]);
+				return reverse_iterator(&arr[v_size]);
 			};
 			const_reverse_iterator rbegin() const{
-				return const_reverse_iterator(&arr[v_size - 1]);
+				return const_reverse_iterator(&arr[v_size]);
 			};
 			reverse_iterator rend(){
 				return reverse_iterator(arr);

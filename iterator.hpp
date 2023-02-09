@@ -14,9 +14,8 @@ namespace ft{
     iterator():i_ptr(nullptr){};
     iterator(pointer ptr): i_ptr(ptr){};
  
-    template <class type>  
-    iterator (const iterator<type>& it){
-        *this = it;
+    iterator (const iterator & it){
+        i_ptr = it.base();
     };
     // iterator& operator=(const iterator & I){
     //     this->i_ptr = I.i_ptr;
