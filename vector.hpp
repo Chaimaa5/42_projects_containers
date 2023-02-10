@@ -322,7 +322,7 @@ namespace ft{
 			for (size_t i = 0; i < lhs.size(); i++)
 			{
 				if (lhs.get_array()[i] <= rhs.get_array()[i])
-					return true; 
+					return true;
 			}
 		}
 		else
@@ -331,18 +331,16 @@ namespace ft{
 	};
 	template <class T, class Alloc>
 	bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
-		
 		if (lhs.size() > rhs.size())
+			return true;
+		if (lhs.size() >= rhs.size())
 		{
 			for (size_t i = 0; i < rhs.size(); i++)
 			{
 				if (lhs.get_array()[i] > rhs.get_array()[i])
 					return true;
-				else
-					return false;
 			}
 		}
-		else 
 		return false;
 	};
 	template <class T, class Alloc>
