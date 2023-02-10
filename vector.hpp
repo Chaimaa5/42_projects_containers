@@ -44,13 +44,12 @@ namespace ft{
 			// range (3)	
 			template <typename InputIterator>
 			vector (InputIterator first, typename ft::EnableIf<ft::is_Integral<InputIterator>::value,InputIterator>::type last, const allocator_type& alloc = allocator_type()){
-				v_size = std::distance(first, last);
+				v_size = 0;
 				v_capacity = v_size;
 				this->alloc = alloc;
 				this->arr = this->alloc.allocate(v_capacity);
-				size_t i = 0;
-				for (InputIterator it = first; it != last; it++, i++)
-					this->alloc.construct(&arr[i], *it);
+				for (InputIterator it = first; it != last; it++)
+					push_back(*it);
 			}
 
 			// copy (4)	
