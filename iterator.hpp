@@ -64,38 +64,7 @@ namespace ft{
     iterator& operator-=(difference_type n) {
         i_ptr -= n;
         return (*this);
-    };
-    bool operator==(iterator rhs) const{
-        if (rhs.i_ptr == i_ptr)
-            return true;
-        return false;
-    };
-    bool operator>(const iterator & rhs) const{
-        if (i_ptr > rhs.i_ptr)
-            return true;
-        return false;
-    };
-    bool operator<(const iterator & rhs) const{
-        if (i_ptr < rhs.i_ptr)
-            return true;
-        return false;
-    };
-    bool operator>=(const iterator & rhs) const{
-        if (i_ptr >= rhs.i_ptr)
-            return true;
-        return false;
-    };
-    bool operator<=(const iterator & rhs) const{
-        if (i_ptr <= rhs.i_ptr)
-            return true;
-        return false;
-    };
-
-		bool operator!=(iterator p) const{
-			if (i_ptr != p.i_ptr)
-				return true;
-			return false;
-		};	
+    };	
     pointer base() const{
         return i_ptr;
     }
@@ -112,4 +81,40 @@ namespace ft{
 		return iterator<T>(it + n);
 
   };
+    template <class T, class I>
+    bool operator==(const iterator<T> &rhs, const iterator<I> & lhs) {
+        if (rhs.base() == lhs.base())
+            return true;
+        return false;
+    };
+    template <class T, class I>
+    bool operator>(const iterator<T> &rhs, const iterator<I> & lhs) {
+        if (rhs.base() > lhs.base())
+            return true;
+        return false;
+    };
+    template <class T, class I>
+    bool operator<(const iterator<T> &rhs, const iterator<I> & lhs) {
+        if (rhs.base() < lhs.base())
+            return true;
+        return false;
+    };
+    template <class T, class I>
+    bool operator>=(const iterator<T> &rhs, const iterator<I> & lhs) {
+        if (rhs.base() >= lhs.base())
+            return true;
+        return false;
+    };
+    template <class T, class I>
+    bool operator<=(const iterator<T> &rhs, const iterator<I> & lhs) {
+        if (rhs.base() <= lhs.base())
+            return true;
+        return false;
+    };
+   template <class T, class I>
+    bool operator!=(const iterator<T> &rhs, const iterator<I> & lhs) {
+        if (rhs.base() != lhs.base())
+            return true;
+        return false;
+    };
 }
