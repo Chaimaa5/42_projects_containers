@@ -52,5 +52,18 @@ namespace ft{
 	struct is_Integral<unsigned long int> {
 		const static bool value = false;
 	};
+	template <>
+	struct is_Integral<double> {
+		const static bool value = false;
+	};
 
+
+	template <typename I>
+	struct is_input_iterator {
+		const static bool value = false;
+	};
+	template <>
+	struct is_input_iterator<std::input_iterator_tag> {
+		const static bool value = true;
+	};
 }

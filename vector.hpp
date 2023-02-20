@@ -42,8 +42,9 @@ namespace ft{
 			// range (3)	
 			template <typename InputIterator>
 			vector (InputIterator first, typename ft::EnableIf<ft::is_Integral<InputIterator>::value,InputIterator>::type last, const allocator_type& alloc = allocator_type()){
-				if(std::is_base_of<std::input_iterator_tag, typename ft::iterator_traits<InputIterator>::iterator_category>::value)
+				if(ft::is_input_iterator<typename ft::iterator_traits<InputIterator>::iterator_category>::value)
 				{
+					// std::cout << "here"<<std::endl;
 					v_size = 0;
 					v_capacity = 0;
 					this->alloc = alloc;
@@ -61,8 +62,6 @@ namespace ft{
 					{
 						this->alloc.construct(&arr[i], *it);
 						i++;
-						v_size = i;
-						v_capacity = i;
 					}
 				}
 			}
@@ -183,6 +182,8 @@ namespace ft{
 				return true;
 			};
 			void reserve (size_type n){
+				if (n > max_size())
+					throw(std::length_error("exception"));
 				if (n > v_capacity)
 				{
 					size_type capacity = v_capacity;
@@ -299,7 +300,7 @@ namespace ft{
 				for (size_t i = 0; i < v_size; i++)
 					tmp[i] = arr[i];
 				iterator tmp_it = begin();
-				if(v_capacity > v_size + 1){
+				if(v_capacity > tmp_size){
 					v_size += 1;
 					size_type i = 0;
 					for (size_type r = 0; r < tmp_size - 1; r++)
@@ -325,7 +326,6 @@ namespace ft{
 						v_size++;
 					}
 					else{
-					
 						clear();
 						if (arr)
 							alloc.deallocate(arr, v_capacity);
@@ -455,7 +455,7 @@ namespace ft{
 							}
 						}
 						else{
-							if(!v_capacity){
+							if(!v_capacity && (position == begin() || position == end())){
 								arr = alloc.allocate(n);
 								for (size_type i = 0; i < n; i++)	
 									alloc.construct(&arr[i],  v[i]);
@@ -493,6 +493,20 @@ namespace ft{
 					}
 			};
 
+			iterator erase (iterator position){
+                return erase(position, position + 1);
+            };
+            iterator erase (iterator first, iterator last){
+                size_t diff =   std::distance(begin(), first);
+                size_t len = std::distance(first, last);
+                for(size_t i = len + diff; i < v_size; i++)
+                    arr[diff++] = arr[i];
+                while (len > 0){
+                    pop_back();
+                    len--;
+                }
+                return (first);
+            };
 			void swap (vector& x){
 				pointer _arr;
 				size_type _capacity;
@@ -549,6 +563,8 @@ namespace ft{
 	template <class T, class Alloc>
 	bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
 		if (lhs.size() < rhs.size())
+			return true;
+		if (lhs.size() <= rhs.size())
 		{
 			for (size_t i = 0; i < lhs.size(); i++)
 			{
@@ -556,24 +572,23 @@ namespace ft{
 					return true;
 			}
 		}
-		else
-			return false;
-		return true;
+		return false;
 	};
 	template <class T, class Alloc>
 	bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
-		if (lhs.size() <= rhs.size())
+		if (lhs.size() > rhs.size())
+			return false;
+		if (lhs.size() < rhs.size())
+			return true;
+		if (lhs.size() >= rhs.size())
 		{
-			for (size_t i = 0; i < lhs.size(); i++)
+			for (size_t i = 0; i < rhs.size(); i++)
 			{
-				if (lhs.get_array()[i] <= rhs.get_array()[i])
-					return true;
+				if (lhs.get_array()[i] > rhs.get_array()[i])
+					return false;
 			}
 		}
-		else
-			return false;
 		return true;
-		// return (!lexicographical_compare(rhs.begin(), rhs.end(), lhs.begin(), lhs.end()));
 	};
 	template <class T, class Alloc>
 	bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
@@ -591,28 +606,18 @@ namespace ft{
 	};
 	template <class T, class Alloc>
 	bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs){
+		if (lhs.size() < rhs.size())
+			return false;
+		if (lhs.size() > rhs.size())
+			return true;
 		if (lhs.size() >= rhs.size())
 		{
 			for (size_t i = 0; i < rhs.size(); i++)
 			{
-				if (lhs.get_array()[i] >= rhs.get_array()[i])
-					return true;
+				if (lhs.get_array()[i] < rhs.get_array()[i])
+					return false;
 			}
 		}
-		else
-			return false;
 		return true;
 	};
-// 	template <class InputIterator1, class InputIterator2>
-//   bool lexicographical_compare (InputIterator1 first1, InputIterator1 last1,
-//                                 InputIterator2 first2, InputIterator2 last2)
-// {
-//   while (first1!=last1)
-//   {
-//     if (first2==last2 || *first2<*first1) return false;
-//     else if (*first1<*first2) return true;
-//     ++first1; ++first2;
-//   }
-//   return (first2!=last2);
-// }
 }
